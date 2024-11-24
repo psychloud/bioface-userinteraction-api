@@ -14,6 +14,8 @@ This is the BioDict API, which provides endpoints for managing bio articles, bio
     - DB_NAME=bioface_db
 4. Run the application : `npm run start`
 
+
+> If you're using compute engine, don't forget to authorize  the connection to your database
 ## API Documentation
 The API documentation is available at /api-docs when the server is running.
 
