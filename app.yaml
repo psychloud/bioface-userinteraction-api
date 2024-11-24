@@ -1,4 +1,4 @@
-runtime: nodejs23  # Tentukan versi Node.js yang kamu gunakan
+runtime: nodejs18  # Tentukan versi Node.js yang kamu gunakan
 
 env_variables:
   DB_HOST: 'your-db-host'  # Ganti dengan alamat host Cloud SQL atau IP Database
