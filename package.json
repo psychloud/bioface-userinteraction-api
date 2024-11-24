@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "ui-api": "nodemon app.js",
+    "start": "node app.js",
+    "ui-api-dev": "nodemon app.js",
     "lint": "eslint .",
     "lintfix": "eslint . --fix"
-
   },
   "keywords": [],
   "author": "",
@@ -15,7 +15,7 @@
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
-    "mysql": "^2.18.1",
+    "mysql2": "^3.11.4",
     "nodemon": "^3.1.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"

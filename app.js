@@ -1,7 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
-const port = 3000;
+const PORT = 3000;
 const db = require('./config/db');
 const bioArticleRoutes = require('./routes/bioArticleRoutes');
 const bioDictRoutes = require('./routes/bioDictRoutes');
@@ -30,6 +30,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal Server Error' });
 });
 
-app.listen(process.env.port || port, () => {
-  console.log(`Server is running on port ${port}`);
+app.listen(process.env.PORT || PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

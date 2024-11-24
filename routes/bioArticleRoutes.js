@@ -1,12 +1,12 @@
 const express = require('express');
 
 const router = express.Router();
-const bioArticlesController = require('../controllers/bioArticlesController');
+const bioArticleController = require('../controllers/bioArticleController');
 
 // Middleware to check for query parameter
 const checkQuery = (req, res, next) => {
   if (req.query.query) {
-    return bioArticlesController.getArticlesByQuery(req, res);
+    return bioArticleController.getArticlesByQuery(req, res);
   }
   next();
 };
@@ -33,7 +33,7 @@ const checkQuery = (req, res, next) => {
  *       404:
  *         description: Article not found
  */
-router.get('/articles/:id', bioArticlesController.getArticlesById);
+router.get('/articles/:id', bioArticleController.getArticlesById);
 
 /**
  * @swagger
@@ -57,6 +57,6 @@ router.get('/articles/:id', bioArticlesController.getArticlesById);
  *               items:
  *                 type: object
  */
-router.get('/articles', checkQuery, bioArticlesController.getAllArticles);
+router.get('/articles', checkQuery, bioArticleController.getAllArticles);
 
 module.exports = router;

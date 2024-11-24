@@ -1,0 +1,20 @@
+runtime: nodejs23  # Tentukan versi Node.js yang kamu gunakan
+
+env_variables:
+  DB_HOST: 'your-db-host'  # Ganti dengan alamat host Cloud SQL atau IP Database
+  DB_USER: 'your-db-user'  # Ganti dengan username untuk koneksi ke DB
+  DB_PASSWORD: 'your-db-password'  # Ganti dengan password untuk koneksi ke DB
+  DB_NAME: 'bioface_db'  # Nama database yang digunakan
+
+instance_class: F2  # Pilih instance class yang sesuai (contoh F2 untuk aplikasi dengan beban ringan)
+
+env: flex  # Gunakan flexible environment jika kamu butuh lebih banyak kontrol terhadap konfigurasi
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  target_cpu_utilization: 0.65
+  target_throughput_utilization: 0.65
+
+handlers:
+  - url: /.*
+    script: auto  # Semua rute lainnya akan ditangani oleh aplikasi Express
