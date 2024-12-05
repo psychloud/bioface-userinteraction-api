@@ -1,52 +1,63 @@
 const db = require('../config/db');
 const { successResponse, errorResponse } = require('../utils/responseHelper');
-
-// get all bio from database
-exports.getAllBioSkincare = (req, res) => {
-  const sql = 'SELECT * FROM bio_skincare';
-  db.query(sql, (err, results) => {
-    if (err) {
-      return errorResponse(res, err.message);
-    }
-    successResponse(res, 'All bios skincare retrieved successfully', results);
+const executeQuery = (sql, params = []) =>
+  new Promise((resolve, reject) => {
+    db.query(sql, params, (err, results) => {
+      if (err) return reject(err);
+      resolve(results);
+    });
   });
+
+exports.getAllBioSkincare = async (req, res) => {
+  try {
+    const sql = 'SELECT * FROM bio_skincare';
+    const results = await executeQuery(sql);
+    if (results.length === 0) {
+      return errorResponse(res, 'No bio skincare found', 404);
+    }
+    successResponse(res, 'Bio skincare retrieved successfully', results);
+  } catch (err) {
+    errorResponse(res, err.message);
+  }
 };
 
-// get bio skincare by query
-exports.getBioSkincareByQuery = (req, res) => {
+exports.getBioSkincareByQuery = async (req, res) => {
   const { query } = req.query;
   let sql = 'SELECT * FROM bio_skincare WHERE 1=1';
   const params = [];
 
   if (query) {
     sql += ' AND (name LIKE ? OR benefit LIKE ?)';
-    const likeQuery = `%${query}%`;
-    params.push(likeQuery, likeQuery);
+    params.push(`%${query}%`, `%${query}%`);
   }
 
-  db.query(sql, params, (err, results) => {
-    if (err) {
-      return errorResponse(res, err.message);
+  try {
+    const results = await executeQuery(sql, params);
+    if (results.length === 0) {
+      return errorResponse(res, 'No bio skincare found matching your query', 404);
     }
-    successResponse(res, 'Bios skincare retrieved successfully', results);
-  });
+    successResponse(res, 'Bio skincare retrieved successfully', results);
+  } catch (err) {
+    errorResponse(res, err.message);
+  }
 };
 
-// get bio skincare by id
-exports.getBioSkincareById = (req, res) => {
+exports.getBioSkincareById = async (req, res) => {
   const { id } = req.params;
-  const sql = 'SELECT * FROM bio_skincare WHERE id = ?';
+  if (!id || isNaN(id)) {
+    return errorResponse(res, 'Invalid ID provided', 400);
+  }
 
-  db.query(sql, [id], (err, results) => {
-    if (err) {
-      return errorResponse(res, err.message);
-    }
+  try {
+    const sql = 'SELECT * FROM bio_skincare WHERE id = ?';
+    const results = await executeQuery(sql, [id]);
+
     if (results.length === 0) {
       return errorResponse(res, 'Bio skincare not found', 404);
     }
-    successResponse(res, 'Bio skincare retrieved successfully', results[0]);
-  });
-};
 
-// edit nature dict
-// delete nature dict
+    successResponse(res, 'Bio skincare retrieved successfully', results[0]);
+  } catch (err) {
+    errorResponse(res, err.message);
+  }
+};

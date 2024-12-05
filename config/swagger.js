@@ -5,13 +5,13 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'BioDict API',
+      title: 'BIOFACE API DOCUMENTATION',
       version: '1.0.0',
-      description: 'API documentation for BioDict application'
+      description: 'API documentation for BIOFACE application'
     },
     servers: [
       {
-        url: 'http://localhost:3000'
+        url: 'your-base-url'
       }
     ]
   },

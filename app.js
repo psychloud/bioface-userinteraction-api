@@ -1,21 +1,21 @@
 const express = require('express');
 const dotenv = require('dotenv');
 
-const PORT = 3000;
+const swaggerUi = require('swagger-ui-express');
 const db = require('./config/db');
+
+const PORT = 3000;
 const bioArticleRoutes = require('./routes/bioArticleRoutes');
 const bioDictRoutes = require('./routes/bioDictRoutes');
 const bioSkincareRoutes = require('./routes/bioSkincareRoutes');
 
 const app = express();
-const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
 
 // Load env variables
 dotenv.config();
 
-app.use(express.json());
-
+app.use(express.json()); // swagger connection
 // routes
 app.use(bioArticleRoutes);
 app.use(bioDictRoutes);
