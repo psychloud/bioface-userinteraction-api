@@ -1,17 +1,17 @@
 const db = require('../config/db');
 const { successResponse, errorResponse } = require('../utils/responseHelper');
-const executeQuery = (sql, params = []) =>
-  new Promise((resolve, reject) => {
-    db.query(sql, params, (err, results) => {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
+// const executeQuery = (sql, params = []) =>
+//   new Promise((resolve, reject) => {
+//     db.query(sql, params, (err, results) => {
+//       if (err) return reject(err);
+//       resolve(results);
+//     });
+//   });
 
 exports.getAllArticles = async (req, res) => {
   try {
     const sql = 'SELECT * FROM bio_article';
-    const results = await executeQuery(sql);
+    const results = await db.query(sql); // Gunakan pool dari db.js
     if (results.length === 0) {
       return errorResponse(res, 'No articles found', 404);
     }
@@ -32,7 +32,7 @@ exports.getArticlesByQuery = async (req, res) => {
   }
 
   try {
-    const results = await executeQuery(sql, params);
+    const results = await db.query(sql, params);
     if (results.length === 0) {
       return errorResponse(res, 'No articles found matching your query', 404);
     }
@@ -50,7 +50,7 @@ exports.getArticlesById = async (req, res) => {
 
   try {
     const sql = 'SELECT * FROM bio_article WHERE id = ?';
-    const results = await executeQuery(sql, [id]);
+    const results = await db.query(sql, [id]);
 
     if (results.length === 0) {
       return errorResponse(res, 'Article not found', 404);

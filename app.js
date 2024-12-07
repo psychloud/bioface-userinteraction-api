@@ -4,7 +4,6 @@ const dotenv = require('dotenv');
 const swaggerUi = require('swagger-ui-express');
 const db = require('./config/db');
 
-const PORT = 3000;
 const bioArticleRoutes = require('./routes/bioArticleRoutes');
 const bioDictRoutes = require('./routes/bioDictRoutes');
 const bioSkincareRoutes = require('./routes/bioSkincareRoutes');
@@ -26,10 +25,23 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Error handler (sementara)
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ message: 'Internal Server Error' });
+  console.error('Full Error Details:', {
+    message: err.message,
+    stack: err.stack,
+    name: err.name
+  });
+  res.status(500).json({ 
+    error: 'Internal Server Error',
+    details: err.message 
+  });
 });
 
-app.listen(process.env.PORT || PORT, () => {
+
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log('Socket Path:', process.env.INSTANCE_UNIX_SOCKET);
 });
+

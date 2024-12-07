@@ -11,7 +11,7 @@ const options = {
     },
     servers: [
       {
-        url: 'your-base-url'
+        url: 'your-base-url-here'
       }
     ]
   },

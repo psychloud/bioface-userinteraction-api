@@ -1,21 +1,24 @@
-const mysql = require('mysql2');
-require('dotenv').config();
+const mysql = require('mysql2/promise');
 
-// Konfigurasi koneksi database dari .env
-const db = mysql.createConnection({
-  host: process.env.DB_HOST,
+const pool = mysql.createPool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME
+  database: process.env.DB_NAME,
+  socketPath: process.env.INSTANCE_UNIX_SOCKET, // Pastikan socket path benar
+  connectionLimit: 10, // Maksimal koneksi dalam pool
+  waitForConnections: true,
+  queueLimit: 0,
 });
 
-// Cek koneksi
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed: ', err.stack);
-    return;
-  }
-  console.log('Connected to database');
-});
-
-module.exports = db;
+module.exports = {
+  query: async (sql, params = []) => {
+    try {
+      const [results] = await pool.execute(sql, params);
+      return results;
+    } catch (error) {
+      console.error('Query execution error:', error);
+      throw error;
+    }
+  },
+};
+                                

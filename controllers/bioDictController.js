@@ -1,17 +1,10 @@
 const db = require('../config/db');
 const { successResponse, errorResponse } = require('../utils/responseHelper');
-const executeQuery = (sql, params = []) =>
-  new Promise((resolve, reject) => {
-    db.query(sql, params, (err, results) => {
-      if (err) return reject(err);
-      resolve(results);
-    });
-  });
 
 exports.getAllBio = async (req, res) => {
   try {
     const sql = 'SELECT * FROM bio_dict';
-    const results = await executeQuery(sql);
+    const results = await db.query(sql);
     if (results.length === 0) {
       return errorResponse(res, 'No bio found', 404);
     }
@@ -32,7 +25,7 @@ exports.getBioByQuery = async (req, res) => {
   }
 
   try {
-    const results = await executeQuery(sql, params);
+    const results = await db.query(sql, params);
     if (results.length === 0) {
       return errorResponse(res, 'No bio found matching your query', 404);
     }
@@ -50,7 +43,7 @@ exports.getBioById = async (req, res) => {
 
   try {
     const sql = 'SELECT * FROM bio_dict WHERE id = ?';
-    const results = await executeQuery(sql, [id]);
+    const results = await db.query(sql, [id]);
 
     if (results.length === 0) {
       return errorResponse(res, 'Bio not found', 404);
