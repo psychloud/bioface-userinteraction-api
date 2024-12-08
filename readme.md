@@ -37,5 +37,29 @@ The API documentation is available at /api-docs when the server is running.
 **Bio Skincare**  
 - `GET /biosk`: Retrieve a list of skincare items  
 - `GET /biosk/:id`: Retrieve a single skincare item by ID  
-- `GET /biosk?query=searchTerm`: Retrieve skincare items by name or benefit containing the search term  
+- `GET /biosk?query=searchTerm`: Retrieve skincare items by name or benefit containing the search term
+**Insert Content** 
+- `POST /articles`: Insert articles data 
+JSON body :
+{
+  "title": "",
+  "source": "",
+  "content": "",
+  "image": ""
+}
+- `POST /bio`: Insert bio data
+{
+  "name": "",
+  "benefit": "",
+  "how_to_use": "",
+  "image": ""
+}
+- `POST /biosk`: Insert bio skincare data
+{
+  "name": "",
+  "description": "",
+  "price": ,
+  "link_to_buy": "",
+  "image": ""
+}
    

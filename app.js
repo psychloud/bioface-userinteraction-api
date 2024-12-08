@@ -7,6 +7,7 @@ const db = require('./config/db');
 const bioArticleRoutes = require('./routes/bioArticleRoutes');
 const bioDictRoutes = require('./routes/bioDictRoutes');
 const bioSkincareRoutes = require('./routes/bioSkincareRoutes');
+const bioInsertRoutes = require('./routes/bioInsertRoutes');
 
 const app = express();
 const swaggerSpec = require('./config/swagger');
@@ -19,6 +20,7 @@ app.use(express.json()); // swagger connection
 app.use(bioArticleRoutes);
 app.use(bioDictRoutes);
 app.use(bioSkincareRoutes);
+app.use(bioInsertRoutes);
 
 // Swagger setup
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
