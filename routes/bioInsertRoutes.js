@@ -28,7 +28,7 @@ const bioInsertController = require('../controllers/bioInsertController');
  *       400:
  *         description: Invalid input
  */
-router.post('/bio-article', bioInsertController.insertBioArticle);
+router.post('/articles', bioInsertController.insertBioArticle);
 
 /**
  * @swagger
@@ -56,7 +56,7 @@ router.post('/bio-article', bioInsertController.insertBioArticle);
  *       400:
  *         description: Invalid input
  */
-router.post('/bio-dict', bioInsertController.insertBioDict);
+router.post('/bio', bioInsertController.insertBioDict);
 
 /**
  * @swagger
@@ -88,6 +88,6 @@ router.post('/bio-dict', bioInsertController.insertBioDict);
  *       400:
  *         description: Invalid input
  */
-router.post('/bio-skincare', bioInsertController.insertBioSkincare);
+router.post('/biosk', bioInsertController.insertBioSkincare);
 
 module.exports = router;
