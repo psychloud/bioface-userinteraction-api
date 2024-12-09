@@ -1,10 +1,10 @@
 runtime: nodejs18
 instance_class: F1 # Instance class untuk App Engine Standard
 env_variables:
-  DB_USER: 'root'
-  DB_PASSWORD: '1234'
-  DB_NAME: 'bioface_ui_db'
-  INSTANCE_UNIX_SOCKET: '/cloudsql/coba-443916:us-central1:coba'
+  DB_USER: 'your-database-user'
+  DB_PASSWORD: 'your-database-password'
+  DB_NAME: 'your-database-name'
+  INSTANCE_UNIX_SOCKET: '/cloudsql/your-connection-name'
 
   # vpc_access_connector:
   # name: projects/coba-443916/locations/us-central1/connectors/default
