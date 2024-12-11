@@ -20,7 +20,7 @@ exports.getBioSkincareByQuery = async (req, res) => {
   const params = [];
 
   if (query) {
-    sql += ' AND (name LIKE ? OR benefit LIKE ?)';
+    sql += ' AND (name LIKE ? OR description LIKE ?)';
     params.push(`%${query}%`, `%${query}%`);
   }
 
